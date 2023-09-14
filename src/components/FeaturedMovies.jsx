@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { useMovieApi } from "../store/moviesContext";
-import Movie from "./Movie";
+import Card from "./Card";
+import LoadingSpinner from "./LoadingSpinner";
 
 const FeaturedMovies = () => {
-  const { movies } = useMovieApi();
+  const { isLoading, error, movies } = useMovieApi();
   const [favorited, setFavorited] = useState(Array(movies.length).fill(false));
   const toggleFavorite = (index) => {
     const updatedFavoritedMovies = [...favorited];
@@ -14,6 +15,9 @@ const FeaturedMovies = () => {
   };
 
   return (
+    <>
+    {isLoading && !error && <LoadingSpinner /> }
+    
     <div className="px-8 py-10 mb-5">
       <div className="flex justify-between items-center mb-5 px-4 ">
         <h2 className="text-xl font-semibold">Featured Movie</h2>
@@ -24,9 +28,9 @@ const FeaturedMovies = () => {
       </div>
 
       <div className="grid grid-col md:grid-cols-2 lg:grid-cols-4 border-b place-items-center">
-        {movies.map((movie, index) => {
+        {!isLoading && !error && movies.map((movie, index) => {
           return (
-            <Movie
+            <Card
               key={index}
               movie={movie}
               index={index}
@@ -37,6 +41,7 @@ const FeaturedMovies = () => {
         })}
       </div>
     </div>
+    </>
   );
 };
 

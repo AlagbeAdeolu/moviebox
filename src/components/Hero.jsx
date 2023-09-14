@@ -2,13 +2,17 @@ import { Menu } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import useHttp from "../hooks/useHttp";
 import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
-import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
+import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
+import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState("");
   const [randomMovie, setRandomMovie] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
+
+  const navigate = useNavigate();
 
   const { sendRequest: fetchSearchedMovie, sendRequest: fetchRandomMovie } =
     useHttp();
@@ -48,7 +52,7 @@ const Hero = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(results);
+    navigate("/search");
   };
 
   return (
@@ -62,16 +66,19 @@ const Hero = () => {
         </div>
         {/* Search */}
         <div className="flex justify-center lg:w-1/2">
-          <form className='flex' onSubmit={submitHandler}>
+          <form className="flex items-center justify-center relative" onSubmit={submitHandler}>
             <input
-              className="bg-transparent border w-[500px] border-[#ffffff] rounded-lg placeholder-[#ffffff] "
+              className="bg-transparent px-4 py-2   border w-[500px] border-[#ffffff] rounded-lg placeholder-[#ffffff] "
               type="text"
               placeholder="What do you want to watch?"
               value={searchQuery}
               id="search"
               onChange={handleSearchQuery}
             />
-            <button className="border bg-gray-500">Submit</button>
+            <div className="absolute flex  right-2">
+
+            <SearchIcon />
+            </div>
           </form>
         </div>
         {/* sign in */}
@@ -101,15 +108,15 @@ const Hero = () => {
                   alt=""
                 />
               </div>
-              <div className="font-bold text-md lg:text-3xl color z-20 text-[#F5F5F5] absolute top-[50%] left-[5%] w-[35%] text-justify">
-                <p>{item.title}</p>
-                <p className="text-[10px] lg:text-sm font-thin">
+              <div className=" lg:text-3xl color z-20 text-[#F5F5F5] absolute top-[50%] left-[5%] w-[35%] text-justify">
+                <p className="font-bold text-[50px] mb-5">{item.title}</p>
+                <p className="text-[8px] lg:text-sm font-thin">
                   {item.overview}
                 </p>
                 <div className=" flex items-center justify-center w-[40%] text-sm py-2 px-4 mt-4 gap-2 rounded-md bg-[#BE123C] cursor-pointer">
                   <PlayCircleFilledWhiteIcon />
                   Watch trailer
-                  </div>
+                </div>
               </div>
             </div>
           );

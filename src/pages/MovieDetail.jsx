@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useHttp from "../hooks/useHttp";
-import Card from "../components/Card";
+import Movie from "../components/Movie";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const MovieDetail = () => {
   const [movieDetails, setMovieDetails] = useState({});
   const [genres, setGenres] = useState([]);
   const { id } = useParams();
 
-  const { sendRequest: getMovieDetail } = useHttp();
+  const { isLoading, error, sendRequest: getMovieDetail } = useHttp();
 
   useEffect(() => {
     // Fetch movie details
@@ -21,7 +22,15 @@ const MovieDetail = () => {
     );
   }, [getMovieDetail, id]);
 
-  return <Card movieDetails={movieDetails} id={id} genres={genres} />;
+  return (
+    <>
+    {isLoading && <LoadingSpinner /> }
+      {!isLoading && error && alert('Something went wrong')}
+      {!isLoading && !error && (
+        <Movie movieDetails={movieDetails} id={id} genres={genres} />
+      )}
+    </>
+  );
 };
 
 export default MovieDetail;

@@ -13,7 +13,7 @@ export const useMovieApi = () => {
 const MoviesProvider = ({ children }) => {
     const [movies, setMovies] = useState([]);
 
-    const {sendRequest: fetchMovies } = useHttp();
+    const { isLoading, error, sendRequest: fetchMovies } = useHttp();
     useEffect(() => {
         const transformData = (movieList) => {
             setMovies(movieList.results.slice(0, 10));
@@ -28,7 +28,7 @@ const MoviesProvider = ({ children }) => {
     }, [fetchMovies]);
 
     return (
-        <movieCtx.Provider value={{movies}}>
+        <movieCtx.Provider value={{ isLoading, error, movies }}>
             {children}
         </movieCtx.Provider>
     )
