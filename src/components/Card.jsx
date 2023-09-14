@@ -4,6 +4,7 @@ import VideocamIcon from "@mui/icons-material/Videocam";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
   const {
@@ -15,30 +16,30 @@ const Card = (props) => {
     runtime,
     vote_count,
   } = props.movieDetails;
-  const year = parseInt(release_date);
+  const year = +(release_date);
 
 
   return (
     <div className="flex text-[#333333]">
       {/* left */}
-      <div className="md:w-[30%] border border-r-2 h-[100vh] flex flex-col justify-between py-8">
+      <div className="hidden md:px-[5%] border border-r-2 h-[100vh] md:flex flex-col justify-between py-8">
         {/* top */}
         <div></div>
         {/* middle */}
         <div className="flex flex-col gap-[40px] mx-auto text-[#909090]">
-          <div className="flex gap-4 items-center text-lg ">
+          <Link to={'/'} className="flex gap-4 items-center text-lg hover:text-[#BE123C]">
             <HomeIcon />
             Home
-          </div>
-          <div className="flex gap-4 items-center">
+          </Link>
+          <div className="cursor-pointer flex gap-4 items-center text-lg hover:text-[#BE123C]">
             <VideocamIcon />
             Movies
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="cursor-pointer flex gap-4 items-center text-lg hover:text-[#BE123C]">
             <OndemandVideoIcon />
             TV Series
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="cursor-pointer flex gap-4 items-center text-lg hover:text-[#BE123C]">
             <EventNoteIcon />
             Upcoming
           </div>
@@ -51,14 +52,13 @@ const Card = (props) => {
       </div>
       {/* right */}
       <div className="flex flex-col p-8">
-        <p>Movie {props.id}</p>
         {/* Poster Image */}
         <div className="flex container justify-center items-center">
           <img src={`https://image.tmdb.org/t/p/original/${backdrop_path}`} alt="/" />
         </div>
         {/* title, release date and runtime */}
-        <div className="flex gap-4 text-[#909090] font-semibold justify-between mt-4 mb-2">
-          <div className="flex gap-4">
+        <div className=" flex gap-4 text-[#909090] font-semibold justify-between mt-4 mb-2">
+          <div className="flex gap-4 text-xs md:text-md lg:text-lg">
             {title ? (
               <h1 data-testid="movie-title">{title}</h1>
             ) : (
@@ -66,7 +66,7 @@ const Card = (props) => {
             )}
             <div className="flex gap-2">
               <p data-testid="movie-release-date">{year}</p>
-              <p data-testid="movie-runtime">{runtime} mins</p>
+              <p data-testid="movie-runtime">{parseFloat(runtime)} mins</p>
             </div>
           </div>
           <div>
@@ -86,7 +86,7 @@ const Card = (props) => {
           </p>
         </div>
         {/* Movie Overview */}
-        <div className="md:block flex gap-5 w-full">
+        <div className="lg:flex gap-5 w-full">
           <div>
             <article data-testid="movie-overview">{overview}</article>
           </div>
