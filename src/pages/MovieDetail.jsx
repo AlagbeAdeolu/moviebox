@@ -17,7 +17,7 @@ const MovieDetail = () => {
       { url: `https://api.themoviedb.org/3/movie/${id}` },
       (data) => {
         setMovieDetails(data);
-        setGenres(data.genres); // Set genres data from the API response
+        setGenres(data.genres); 
       }
     );
   }, [getMovieDetail, id]);

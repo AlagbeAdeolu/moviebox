@@ -1,8 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import FavoriteBorder from "@mui/icons-material/Favorite";
+import { useMovieApi } from "../store/moviesContext";
 
-const Card = ({ movie, index, favorited, toggleFavorite }) => {
+const Card = ({ movie, index}) => {
+  
+  const { movies } = useMovieApi();
+  const [favorited, setFavorited] = useState(Array(movies.length).fill(false));
+  const toggleFavorite = (index) => {
+    const updatedFavoritedMovies = [...favorited];
+    updatedFavoritedMovies[index] = !updatedFavoritedMovies[index];
+    setFavorited(updatedFavoritedMovies);
+  };
   const isFavorited = favorited[index];
 
   return (
@@ -48,10 +57,10 @@ const Card = ({ movie, index, favorited, toggleFavorite }) => {
           <div className="mt-1 flex justify-between text-xs font-light">
             <div className="flex gap-1 items-center justify-center" >
               <img src="/icon.png" className="h-[20px] " alt="/" />
-              <p>{+movie.vote_average * 10}/100</p>
+              <p>{(+movie.vote_average * 10).toFixed(0)}/100</p>
             </div>
             <div className="flex gap-1 items-center justify-center">
-              🍅<p>{+movie.vote_average * 10}%</p>
+              🍅<p>{(+movie.vote_average ).toFixed(0) * 10}%</p>
             </div>
           </div>
         </div>

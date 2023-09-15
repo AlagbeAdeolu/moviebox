@@ -5,9 +5,8 @@ import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
-import ListIcon from '@mui/icons-material/List';
-import PersonalVideoIcon from '@mui/icons-material/PersonalVideo'
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import ListIcon from "@mui/icons-material/List";
 
 const Movie = (props) => {
   const {
@@ -19,22 +18,24 @@ const Movie = (props) => {
     runtime,
     vote_count,
   } = props.movieDetails;
-  const year = String(release_date).slice(0,4)
-  
+
+  console.log(props.movieDetails);
 
 
   return (
     <div className="flex text-[#333333]">
       {/* left */}
-      <div className="hidden md:px-[5%] border border-r-2 h-[100vh] md:flex flex-col items-center justify-between py-8 rounded-[60px]">
+      <div className="hidden md:px-[5%] bg-[#F9E8EC] border-none border-r-2 h-[100vh] md:flex flex-col items-center justify-between py-8 rounded-r-[60px]">
         {/* top */}
         <div className="flex font-bold text-3xl gap-4 items-center">
-          <PersonalVideoIcon />
-          MovieBox
+          <img className="text-[black]" src="/assets/Logo.svg" alt="logo" />
         </div>
         {/* middle */}
         <div className="flex flex-col gap-[40px] mx-auto text-[#909090]">
-          <Link to={'/'} className="flex gap-4 items-center text-lg hover:text-[#BE123C]">
+          <Link
+            to={"/"}
+            className="flex gap-4 items-center text-lg hover:text-[#BE123C]"
+          >
             <HomeIcon />
             Home
           </Link>
@@ -60,27 +61,32 @@ const Movie = (props) => {
       {/* right */}
       <div className="flex flex-col p-8">
         {/* Poster Image */}
-        <div className="flex container justify-center items-center">
-          <img src={`https://image.tmdb.org/t/p/original/${backdrop_path}`} alt="/" />
+        <div className="flex container lg:w-[700px] justify-center items-center">
+          <img
+            className="rounded-lg"
+            src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
+            alt="/"
+          />
         </div>
         {/* title, release date and runtime */}
-        <div className=" flex gap-4 text-gray-700 items-center font-semibold justify-between mt-4 mb-2">
-          <div className="flex gap-4 text-xs md:text-md lg:text-lg">
+        <div className=" md:flex gap-4 text-gray-700 items-center font-semibold justify-between mt-4 mb-2">
+          <div className="md:flex gap-4 text-md lg:text-lg">
             {title ? (
               <h1 data-testid="movie-title">{title}</h1>
             ) : (
               <p>Not Found</p>
-            )} &#x2022;
-            <div className="flex gap-2">
-              <p data-testid="movie-release-date">{year}</p>
+            )}{" "}
+            &#x2022;
+            <div className="md:flex gap-2 mb-2 md:mb-0">
+              <p data-testid="movie-release-date">{release_date + 'T00:00:00.000Z'}</p>
               &#x2022;
               <p data-testid="movie-runtime">{runtime} mins</p>
             </div>
           </div>
           <div>
-            <p>
+            <p className="text-sm">
               ⭐
-              <span className="font-thin text-[#909090]">
+              <span className="font-thin text-sm text-[#909090]">
                 {parseFloat(vote_average).toFixed(1)}
               </span>{" "}
               | <span className="font-semibold">{vote_count}</span>
@@ -88,10 +94,11 @@ const Movie = (props) => {
           </div>
         </div>
         {/* Genre */}
-        <div className="mb-2">
-          <p className="text-sm">
-            Genres: {props.genres.map((genre) => genre.name).join(", ")}
-          </p>
+        <div className="mb-2 flex gap-2">
+          Genres:
+          {props.genres.map((genre) => (
+            <p className="text-sm border rounded-full p-1">{genre.name}</p>
+          ))}
         </div>
         {/* Movie Overview */}
         <div className="lg:flex gap-5 w-full">

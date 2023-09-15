@@ -1,7 +1,5 @@
-import { Menu } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import useHttp from "../hooks/useHttp";
-import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
 import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
@@ -52,39 +50,39 @@ const Hero = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/search");
+    console.log(results.results)
+    navigate("/search", {state:{ state: { results: results.results } }});
   };
 
   return (
     <div className="relative">
       {/* Search Bar */}
-      <div className="flex w-full justify-between absolute z-50 text-white p-8">
+      <div className="md:flex w-full justify-between items-center absolute z-50 text-white p-8">
         {/* Logo */}
-        <div className="flex font-bold text-3xl gap-4 items-center">
-          <PersonalVideoIcon />
-          MovieBox
+        <div className="flex mb-4 font-bold text-3xl gap-4 items-center">
+        <img src='/assets/Logo.svg' alt='' />
         </div>
         {/* Search */}
-        <div className="flex justify-center lg:w-1/2">
-          <form className="flex items-center justify-center relative" onSubmit={submitHandler}>
+        <div className="flex mb-4 justify-center lg:w-1/2">
+          <form className="max-w-[500px] flex items-center justify-center relative" onSubmit={submitHandler}>
             <input
-              className="bg-transparent px-4 py-2   border w-[500px] border-[#ffffff] rounded-lg placeholder-[#ffffff] "
+              className="bg-transparent px-4 py-2 text-white   border max-w-[350px] md:w-[500px] border-[#ffffff] rounded-lg placeholder-[#ffffff] "
               type="text"
               placeholder="What do you want to watch?"
               value={searchQuery}
               id="search"
               onChange={handleSearchQuery}
             />
-            <div className="absolute flex  right-2">
+            <div onClick={submitHandler} className="cursor-pointer absolute flex  right-2">
 
             <SearchIcon />
             </div>
           </form>
         </div>
         {/* sign in */}
-        <div className="flex">
-          <p className=" w-full text-sm">Sign in</p>
-          <Menu />
+        <div className="absolute top-9 right-2 md:static flex items-center justify-end gap-2">
+          <p className="text-sm">Sign in</p>
+          <img src="/assets/Menu.svg" alt="" />
         </div>
       </div>
       {/* Image Carousel */}
@@ -108,12 +106,12 @@ const Hero = () => {
                   alt=""
                 />
               </div>
-              <div className=" lg:text-3xl color z-20 text-[#F5F5F5] absolute top-[50%] left-[5%] w-[35%] text-justify">
-                <p className="font-bold text-[50px] mb-5">{item.title}</p>
-                <p className="text-[8px] lg:text-sm font-thin">
+              <div className="lg:text-3xl container color z-20 text-[#F5F5F5] absolute top-[50%] left-[5%] w-[75%] md:w-[35%] text-justify">
+                <p className="font-bold text-lg md:text-[50px] mb-5">{item.title}</p>
+                <p className="text-[10px] lg:text-sm font-thin">
                   {item.overview}
                 </p>
-                <div className=" flex items-center justify-center w-[40%] text-sm py-2 px-4 mt-4 gap-2 rounded-md bg-[#BE123C] cursor-pointer">
+                <div className=" flex items-center justify-center md:w-[40%] text-xs py-2 px-4 mt-4 gap-2 rounded-md bg-[#BE123C] cursor-pointer">
                   <PlayCircleFilledWhiteIcon />
                   Watch trailer
                 </div>

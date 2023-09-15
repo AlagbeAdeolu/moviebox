@@ -7,13 +7,13 @@ import MoviesProvider from './store/moviesContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <>
     <MoviesProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </MoviesProvider>
 
-  </React.StrictMode>
+  </>
 );
 
